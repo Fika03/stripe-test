@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useContext } from "react";
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import Checkoutform from "@/components/Checkoutform";
 import { CartContext } from "@/context/cartContext";
@@ -37,10 +37,17 @@ const Checkout = () => {
     }
   }, [cart]);
 
+  const options: StripeElementsOptions = {
+    clientSecret,
+    appearance: {
+      theme: "night",
+    },
+  };
+
   return (
     <div>
       {clientSecret && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
+        <Elements stripe={stripePromise} options={options}>
           <Checkoutform />
           Total: {total} kr.
         </Elements>
