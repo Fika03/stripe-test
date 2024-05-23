@@ -7,7 +7,9 @@ export default function Home() {
       <h1 className="text-5xl text-gray-500">Stripe webshop</h1>
       <div className="z-10 w-full max-w-5xl items-center font-mono text-sm lg:flex flex-col justify-between">
         <ProductContainer />
-        <button className="mt-10 bg-gray-600 p-2 rounded">Checkout</button>
+        <a href="/checkout">
+          <button className="mt-10 bg-gray-600 p-2 rounded">Checkout</button>
+        </a>
         <Cart />
       </div>
     </main>

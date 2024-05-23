@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect, useContext } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -15,24 +16,28 @@ const Checkout = ({ searchParams }: any) => {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
     const fetchClientSecret = async () => {
-      const response = await fetch("http://localhost:3000/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(cart),
-      });
+      try {
+        const response = await fetch("http://localhost:3000/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ cart }),
+        });
 
-      const data = await response.json();
-      setClientSecret(data.clientSecret);
-      console.log(data); // Log the response data
+        const data = await response.json();
+        setClientSecret(data.clientSecret);
+      } catch (error) {
+        console.error("Error fetching client secret:", error);
+      }
     };
 
-    fetchClientSecret();
-  }, [cart]); // Include cart in the dependency array to refetch if cart changes
+    if (cart.length > 0) {
+      fetchClientSecret();
+    }
+  }, [cart]);
 
   return (
-    <div className="App">
+    <div>
       {clientSecret && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
           <Checkoutform />
