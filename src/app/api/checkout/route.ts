@@ -27,6 +27,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
+      totalAmount: calculateOrderAmount(cart),
     });
   } catch (error) {
     console.error("Error processing payment:", error);

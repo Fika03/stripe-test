@@ -13,6 +13,7 @@ const stripePromise = loadStripe(
 const Checkout = () => {
   const { cart } = useContext(CartContext); // Destructure cart from context
   const [clientSecret, setClientSecret] = useState("");
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const fetchClientSecret = async () => {
@@ -25,6 +26,7 @@ const Checkout = () => {
 
         const data = await response.json();
         setClientSecret(data.clientSecret);
+        setTotal(data.totalAmount / 100);
       } catch (error) {
         console.error("Error fetching client secret:", error);
       }
@@ -40,6 +42,7 @@ const Checkout = () => {
       {clientSecret && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
           <Checkoutform />
+          Total: {total} kr.
         </Elements>
       )}
     </div>

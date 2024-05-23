@@ -84,7 +84,7 @@ const Checkoutform = () => {
     <form id="payment-form" onSubmit={handleSubmit} className="w-1/2">
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
+        <span id="button-text" className="bg-blue-600 p-1 rounded">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>
       </button>
