@@ -5,13 +5,12 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import Checkoutform from "@/components/Checkoutform";
 import { CartContext } from "@/context/cartContext";
-import { IProduct } from "@/models/IProduct";
 
 const stripePromise = loadStripe(
   "pk_test_51PJVpKP6tQZA3rOxbjeakMIwsDUS0JcPuoiu3ReCDrgwuZIUxGSCYdTnu1mWWvPS9xkgfPaARNO1e0In7eaFzR8z009ld66fb2"
 );
 
-const Checkout = ({ searchParams }: any) => {
+const Checkout = () => {
   const { cart } = useContext(CartContext); // Destructure cart from context
   const [clientSecret, setClientSecret] = useState("");
 
